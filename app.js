@@ -1,18 +1,13 @@
-const { Router } = require("express");
-
-const express = require('express');
-
-//Rotas
-const routes = express.Router();
-
-routes.get('/', (request, response)=>{
-    response.send("Hello world");
-});
+const express = require("express");
+const mainRoutes = require("./routes/index");
 
 //Configurações
 
 const app = express();
-app.use('/', routes);
+app.use('/', mainRoutes);
+//app.use('/admin', adminRoutes);
+
+app.use(express.json());
 
 //exportando a app
 module.exports = app;
