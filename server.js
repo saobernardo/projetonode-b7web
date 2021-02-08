@@ -11,7 +11,10 @@ mongoose.connection.on('error', (error) => {
     console.error("Error:" + error.message)
 });
 
-//usando váriável de ambiente pra defiir port
+//Carregando todos os models
+//require('./models/Post');
+
+//usando váriável de ambiente pra definir port
 app.set('port', process.env.PORT || 7777);
 
 const server = app.listen(app.get('port'), ()=>{

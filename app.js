@@ -2,6 +2,7 @@ const express = require("express");
 const mustache = require('mustache-express');
 const mainRoutes = require("./routes/index");
 const helper = require('./helpers');
+const errorHandler = require('./handlers/errorHandler');
 
 //Configurações
 const app = express();
@@ -14,7 +15,10 @@ app.use((req, res, next)=>{
 });
 
 app.use(express.json());
+//rotas principais
 app.use('/', mainRoutes);
+//Não encontrada
+app.use(errorHandler.notFound);
 
 //configurando Template Engine
 app.engine('mst', mustache(__dirname+'/views/partials', '.mst'));
