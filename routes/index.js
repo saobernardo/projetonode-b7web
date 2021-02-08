@@ -1,18 +1,15 @@
 const express = require("express");
-
+const homeController = require("../controllers/homeController");
 const routes = express.Router();
+const userController = require("../controllers/userController");
 
 /*GET: request.query
 POST: request.body
 URL PARAMETER: request.params
 */
 
-routes.get('/', (request, response)=>{
-    let obj = {
-        title: "Título de teste",
-        pageTitle: "Título da página"
-    };
-    response.render('home', obj);
-});
+routes.get('/', homeController.userMiddleware, homeController.index);
+routes.get('/users/login', userController.login);
+routes.get('/users/register', userController.register);
 
 module.exports = routes;

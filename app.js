@@ -7,12 +7,14 @@ const helper = require('./helpers');
 const app = express();
 //antes do router, usa-se o helper
 app.use((req, res, next)=>{
+    //res.locals está criando variáveis globais
     res.locals.h = helper;
-    res.locals.teste='123';
+    //a próxima página acessada terá essas informações
     next();
 });
-app.use('/', mainRoutes);
+
 app.use(express.json());
+app.use('/', mainRoutes);
 
 //configurando Template Engine
 app.engine('mst', mustache(__dirname+'/views/partials', '.mst'));

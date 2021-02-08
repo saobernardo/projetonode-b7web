@@ -1,3 +1,5 @@
 {{!Usando uma partial, pedaço de código com um HTML}}
 {{> header}}
 <h1>Página home: {{teste}}</h1>
+
+<p>USUÁRO LOGADO: {{userInfo.name}} </p>
