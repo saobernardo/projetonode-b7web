@@ -1,5 +1,4 @@
 //Importando nossa aplicação no servidor e as variáveis de ambiente
-const app = require('./app');
 const mongoose = require('mongoose');
 require('dotenv').config({path:'variables.env'});
 
@@ -11,9 +10,10 @@ mongoose.connection.on('error', (error) => {
     console.error("Error:" + error.message)
 });
 
-//Carregando todos os models
-//require('./models/Post');
+//Carregando os models antes da aplicação
+require('./models/Post');
 
+const app = require('./app');
 //usando váriável de ambiente pra definir port
 app.set('port', process.env.PORT || 7777);
 

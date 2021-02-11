@@ -13,6 +13,7 @@ routes.get('/', homeController.index);
 routes.get('/users/login', userController.login);
 routes.get('/users/register', userController.register);
 routes.get('/post/add', postController.add);
-router.post('/post/add', postController.addAction);
+routes.post('/post/add', postController.addAction);
+routes.get('/post/:slug/edit', postController.edit);
 
 module.exports = routes;

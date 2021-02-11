@@ -2,4 +2,9 @@
 {{> header}}
 <h1>Página home: {{teste}}</h1>
 
-<p>USUÁRIO LOGADO: {{userInfo.name}} </p>
+{{#posts}}
+    <h3><a href="/post/{{slug}}"> {{title}} </a></h3>
+    <p> {{body}} </p>
+    <a href="/post/{{slug}}/edit">[ Editar] </p>
+    <hr />
+{{/posts}}

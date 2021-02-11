@@ -1,20 +1,34 @@
 const express = require("express");
 const mustache = require('mustache-express');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const flash = require('express-flash');
+
 const mainRoutes = require("./routes/index");
 const helper = require('./helpers');
 const errorHandler = require('./handlers/errorHandler');
 
 //Configurações
 const app = express();
+
+app.use(express.json()); //transformar os ddos do body em json
+app.use(express.urlencoded({extended:true}));//
+app.use(cookieParser(process.env.SECRET));
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(flash());
+
 //antes do router, usa-se o helper
 app.use((req, res, next)=>{
     //res.locals está criando variáveis globais
     res.locals.h = helper;
+    res.locals.flashes = req.flash();
     //a próxima página acessada terá essas informações
     next();
 });
-
-app.use(express.json());
 //rotas principais
 app.use('/', mainRoutes);
 //Não encontrada
