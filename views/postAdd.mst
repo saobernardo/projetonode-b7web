@@ -7,7 +7,12 @@
     {{/error}}
 {{/flashes}}
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
+    <label>
+        Imagem:
+        <input type="file" name="photo" />
+    </label>
+    <br />
     <label>
         Título:
         <input type="text" name="title" />
@@ -19,7 +24,9 @@
     </label>
     <br />
     <label>
-        Tags:
+        Tags: <small>(Separar as tags por vírgula)</small>
+        <br />
+        <input type="text" name="tags" />
     </Label>
     <br />
     <label>

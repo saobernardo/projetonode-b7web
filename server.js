@@ -3,7 +3,12 @@ const mongoose = require('mongoose');
 require('dotenv').config({path:'variables.env'});
 
 //criando conexão de banco
-mongoose.connect(process.env.DATABASE, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.DATABASE, 
+    {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true,
+        useFindAndModify: false
+    });
 //Permite ES nas requisições de banco
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (error) => {

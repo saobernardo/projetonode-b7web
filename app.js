@@ -13,6 +13,10 @@ const app = express();
 
 app.use(express.json()); //transformar os ddos do body em json
 app.use(express.urlencoded({extended:true}));//
+
+//Pasta estática, em qualquer lugar do sistema pode ser acessado
+app.use(express.static(__dirname+"/public"))
+
 app.use(cookieParser(process.env.SECRET));
 app.use(session({
     secret: process.env.SECRET,
