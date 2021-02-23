@@ -23,7 +23,11 @@ routes.post('/post/add',
 );
 
 routes.get('/post/:slug/edit', postController.edit);
-routes.post('/post/:slug/edit', postController.editAction);
+routes.post('/post/:slug/edit', 
+    imageMiddleware.upload,
+    imageMiddleware.resize,
+    postController.editAction
+);
 
 routes.get('/post/:slug', postController.view);
 

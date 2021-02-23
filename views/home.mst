@@ -1,6 +1,11 @@
 {{!Usando uma partial, pedaço de código com um HTML}}
 {{> header}}
-<h1>Página home: {{teste}}</h1>
+
+<div class="tags">
+    {{#tags}}
+        <div class="tag {{class}}"><a href="/?t={{_id}}"> {{_id}} ({{count}}) </a></div>
+    {{/tags}}
+</div>
 
 {{#posts}}
     <div class="post">
