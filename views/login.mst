@@ -1,6 +1,6 @@
 {{> header}}
 <h1>Faça o seu login</h1>
 <form>
-    <input type="text" name="usuário"/>
+    <input type="text" name="usuario"/>
     <button>Butão</button>
 </form>

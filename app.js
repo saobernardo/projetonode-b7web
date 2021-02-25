@@ -3,6 +3,8 @@ const mustache = require('mustache-express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('express-flash');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
 
 const mainRoutes = require("./routes/index");
 const helper = require('./helpers');
@@ -25,6 +27,8 @@ app.use(session({
 }));
 app.use(flash());
 
+
+
 //antes do router, usa-se o helper
 app.use((req, res, next)=>{
     //res.locals está criando variáveis globais
@@ -33,6 +37,17 @@ app.use((req, res, next)=>{
     //a próxima página acessada terá essas informações
     next();
 });
+
+//biblioteca de login
+app.use(passport.initialize());
+app.use(passport.session()); //Iniciando sessão
+
+//Configurações do passport
+const User = require('./models/User');
+passport.use(new localStrategy(User.authenticate())); //Autenticação
+passport.serializeUser(User.serializeUser()); //Transforma uma lista em um objeto JSON
+passport.deserializeUser(User.deserializeUser());   //Transforma o Objeto JSON em uma lista
+
 //rotas principais
 app.use('/', mainRoutes);
 //Não encontrada

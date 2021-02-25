@@ -14,6 +14,7 @@ URL PARAMETER: request.params
 routes.get('/', homeController.index);
 routes.get('/users/login', userController.login);
 routes.get('/users/register', userController.register);
+routes.post('/users/register', userController.registerAction);
 
 routes.get('/post/add', postController.add);
 routes.post('/post/add',
