@@ -1,5 +1,6 @@
-exports.defaultPageTitle = "Site ABC";
+exports.defaultPageTitle = "Site ABC"; //Título do site como teste
 
+//Items do menu
 exports.menu = [
     {name: 'Home', slug: '/', guest: true, logged: true},
     {name: 'Login', slug: '/users/login', guest: true, logged: false},

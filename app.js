@@ -44,6 +44,7 @@ app.use((req, res, next)=>{
     res.locals.flashes = req.flash();
     res.locals.user = req.user;
 
+    //Verifica se está autenticado(logado) para aparecer determinados ícones do menu
     if(req.isAuthenticated()){
         res.locals.h.menu = res.locals.h.menu.filter(i =>(i.logged));
     } else{
