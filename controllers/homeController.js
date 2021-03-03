@@ -9,6 +9,8 @@ exports.index = async (req, res)=>{
         tag: ''
     };
 
+    console.log(req.user);
+
     responseJson.tag = req.query.t;
     //Filtro de posts para o const posts
     const postFilter = (responseJson.tag) ? {tags: responseJson.tag}: {};

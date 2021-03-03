@@ -14,6 +14,8 @@
         {{/photo}}
         <h3><a href="/post/{{slug}}"> {{title}} </a></h3>
         <p> {{body}} </p>
-        <a href="/post/{{slug}}/edit">[ Editar] </p>
+        {{#user}}
+            <a href="/post/{{slug}}/edit">[ Editar] </p>
+        {{/user}}
     </div>
 {{/posts}}

@@ -27,17 +27,6 @@ app.use(session({
 }));
 app.use(flash());
 
-
-
-//antes do router, usa-se o helper
-app.use((req, res, next)=>{
-    //res.locals está criando variáveis globais
-    res.locals.h = helper;
-    res.locals.flashes = req.flash();
-    //a próxima página acessada terá essas informações
-    next();
-});
-
 //biblioteca de login
 app.use(passport.initialize());
 app.use(passport.session()); //Iniciando sessão
@@ -47,6 +36,24 @@ const User = require('./models/User');
 passport.use(new localStrategy(User.authenticate())); //Autenticação
 passport.serializeUser(User.serializeUser()); //Transforma uma lista em um objeto JSON
 passport.deserializeUser(User.deserializeUser());   //Transforma o Objeto JSON em uma lista
+
+//antes do router, usa-se o helper
+app.use((req, res, next)=>{
+    //res.locals está criando variáveis globais
+    res.locals.h = {...helper};
+    res.locals.flashes = req.flash();
+    res.locals.user = req.user;
+
+    //Verifica se está autenticado(logado) para aparecer determinados ícones do menu
+    if(req.isAuthenticated()){
+        res.locals.h.menu = res.locals.h.menu.filter(i =>(i.logged));
+    } else{
+        res.locals.h.menu = res.locals.h.menu.filter(i =>i.guest);
+    }
+
+    //a próxima página acessada terá essas informações
+    next();
+});
 
 //rotas principais
 app.use('/', mainRoutes);
