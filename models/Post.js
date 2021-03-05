@@ -15,7 +15,8 @@ const postSchema = new mongoose.Schema({
         type:String,
         trim:true
     }, 
-    tags:[String]
+    tags:[String],
+    author: mongoose.Schema.Types.ObjectId
 });
 
 postSchema.pre('save', async function(next) {
@@ -43,6 +44,24 @@ postSchema.statics.getTagsList = function() {
         {$group: {_id:'$tags', count: {$sum:1}}},
         //ordenar, como o order by
         {$sort:{count: -1}}
+    ]);
+}
+
+postSchema.statics.findPosts = function(filters = {}){
+    return this.aggregate([
+        {$match: filters}, //Procurar itens com base em um filtro enviado
+        {$lookup: { //Aonde vai procurar algo para juntar ao que buscamos
+            from: 'users', //de qual tabela
+            let: {'author': '$author'}, //variável: nome: valor do campo
+            pipeline: [ //ações
+                {$match: {$expr:{$eq:['$$author','$_id']}}}, //um tipo de INNER JOIN
+                {$limit: 1}
+            ],
+            as: 'author'
+        }},
+        {$addFields: {
+            'author': {$arrayElemAt: ['$author', 0]}
+        }}
     ]);
 }
 
