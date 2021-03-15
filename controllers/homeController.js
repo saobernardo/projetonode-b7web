@@ -17,7 +17,7 @@ exports.index = async (req, res)=>{
     console.log(postFilter);
     
     const tagsPromise = Post.getTagsList();
-    const postsPromise = Post.findPosts(postFilter);
+    const postsPromise = Post.find(postFilter).populate('author');
 
     const [tags, posts] = await Promise.all([tagsPromise, postsPromise]);
 
